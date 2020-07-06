@@ -2,12 +2,21 @@ import React from 'react'
 import styled from 'styled-components';
 import Footer from '../components/Footer'
 
-export default function ImageContainer() {
+export default function ImageContainer(props) {
+    const { isLoading, imageArray } = props;
     return (
         <ContentWrapper>
-            <div class="content">
-                <h2 class="content-head is-center">Images</h2>
-            </div>
+            {isLoading && <h2>Loading...</h2>}
+            <ImageHolder>
+                {!isLoading && imageArray.length > 0 && imageArray.map(image => {
+                    return (
+                        <div key={image.id} className="image">
+                            <img src={image.largeImageURL} />
+                        </div>
+                    )
+                })
+                }
+            </ImageHolder>
             <Footer />
         </ContentWrapper>
     )
@@ -15,7 +24,7 @@ export default function ImageContainer() {
 
 const ContentWrapper = styled.div`
     position: absolute;
-    top: 350px;
+    top: 500px;
     width: 100%;
     min-height: 12%;
     z-index: 2;
@@ -23,5 +32,21 @@ const ContentWrapper = styled.div`
     text-align: center;
     .content {
         padding: 1em 1em 3em;
+    }
+`;
+
+const ImageHolder = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+    max-width: 800px;
+    margin: 1rem auto;
+    justify-content: center;
+    align-items: center;
+    img {
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
+        border-radius: 10px;
     }
 `;
