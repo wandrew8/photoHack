@@ -10,6 +10,7 @@ export default function Main() {
     const [searchColor, setSearchColor] = useState('');
     const [imageArray, setImageArray] = useState([]);
     const [searchCategory, setSearchCategory] = useState('');
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         console.log(searchColor)
@@ -61,7 +62,7 @@ export default function Main() {
                 <div className="splash">
                     <h1 className="splash-head">Stock Image Finder</h1>
                     <p className="splash-subhead">
-                        Search Hundreds of Stock Images for the perfect One
+                        Search Hundreds of Stock Images
                     </p>
                     <button onClick={() => (setSearchType('keyword'))} className="pure-button">Keyword</button>
                     <button onClick={() => (setSearchType('color'))} className="pure-button">Color</button>
@@ -128,7 +129,7 @@ export default function Main() {
                 }
                 </div>
             </SplashContainer>
-            <ImageContainer imageArray={imageArray} isLoading={isLoading}/>
+            <ImageContainer imageArray={imageArray} isLoading={isLoading} page={page} setPage={setPage}/>
         </React.Fragment>
 
     )
@@ -138,10 +139,17 @@ const SplashContainer = styled.div`
     background: #1f8dd6;
     z-index: 1;
     width: 100%;
-    height: 500px;
+    height: 400px;
     top: 0;
     left: 0;
     position: fixed !important;
+    form {
+        height: 100px;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
     .splash {
         width: 80%;
         height: 80%;
